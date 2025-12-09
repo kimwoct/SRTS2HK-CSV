@@ -27,7 +27,7 @@ def convert_s2t(input_file: str | Path, output_folder: Path | None = None) -> Pa
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Create output filename with '_traditional' suffix in output folder
-    output_path = output_dir / f"{input_path.stem}_traditional{input_path.suffix}"
+    output_path = output_dir / f"{input_path.stem}_zh{input_path.suffix}"
     
     # Read input file
     content = input_path.read_text(encoding="utf-8")
