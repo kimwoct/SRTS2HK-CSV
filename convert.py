@@ -8,6 +8,10 @@ from pathlib import Path
 INPUT_FOLDER = Path("input")       # Input folder for original SRT files
 OUTPUT_FOLDER = Path("output")   # Output folder for converted files
 
+# Create folders if they don't exist
+INPUT_FOLDER.mkdir(parents=True, exist_ok=True)
+OUTPUT_FOLDER.mkdir(parents=True, exist_ok=True)
+
 
 def convert_s2t(input_file: str | Path, output_folder: Path | None = None) -> Path:
     """
