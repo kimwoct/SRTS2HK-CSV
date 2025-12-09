@@ -67,8 +67,10 @@ def convert_srt_to_csv(input_file: str | Path, output_folder: Path | None = None
     # Convert to CSV
     csv_content = srt_to_csv(srt_text)
 
-    # Write CSV file
-    output_path.write_text(csv_content, encoding='utf-8')
+    # Write CSV file with UTF-8 BOM for Windows Excel compatibility
+    # Use newline='' to let csv content control line endings (works on both Mac and Windows)
+    with open(output_path, 'w', encoding='utf-8-sig', newline='') as f:
+        f.write(csv_content)
 
     print(f"CSV: {input_path} -> {output_path}")
     return output_path
