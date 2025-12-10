@@ -1,6 +1,6 @@
 # SRT Converter - 簡體轉繁體字幕轉換工具
 
-Convert simplified Chinese subtitle files to traditional Chinese using `zhconv`.
+Convert simplified Chinese SRT subtitle files to traditional Chinese and export to CSV format using `zhconv`.
 
 ## Prerequisites
 
@@ -8,40 +8,35 @@ Convert simplified Chinese subtitle files to traditional Chinese using `zhconv`.
 
 ## Setup
 
-1. Initialize the project (already done):
-   ```bash
-   uv init --name srt-converter
-   ```
-
-2. Install dependencies:
-   ```bash
-   uv add zhconv
-   ```
+Install dependencies:
+```bash
+uv add zhconv
+```
 
 ## Usage
 
-### Convert a subtitle file
+1. Place your `.srt` files in the `input/` folder
+2. Run the conversion script:
+   ```bash
+   uv run python convert.py
+   ```
+3. Find the converted files in the `output/` folder:
+   - `*_zh.srt` - Traditional Chinese SRT file
+   - `*.csv` - CSV file (Excel compatible with UTF-8 BOM)
 
-Run the conversion script:
-```bash
-uv run python convert.py
-```
+### Programmatic Usage
 
-This will convert `1209.srt` to `1209_traditional.srt`.
-
-### Convert a different file
-
-Edit `convert.py` and change the filename in the `__main__` block:
 ```python
-if __name__ == "__main__":
-    convert_s2t("your_file.srt")
-```
+from convert import convert_s2t, convert_srt_to_csv, process_all_srt_files
 
-Or import the function in Python:
-```python
-from convert import convert_s2t
+# Convert a single file to traditional Chinese
+convert_s2t("input.srt", output_folder=Path("output"))
 
-convert_s2t("input.srt", "output.srt")
+# Convert SRT to CSV
+convert_srt_to_csv("input.srt", output_folder=Path("output"))
+
+# Process all SRT files in input folder
+process_all_srt_files()
 ```
 
 ## Supported Conversions
@@ -58,8 +53,8 @@ The `zhconv` library supports multiple regional variants:
 ```
 .
 ├── convert.py          # Main conversion script
-├── 1209.srt            # Original subtitle (simplified)
-├── 1209_traditional.srt # Converted subtitle (traditional)
+├── input/              # Place original SRT files here
+├── output/             # Converted files output here
 ├── pyproject.toml      # Project configuration
 └── README.md           # This file
 ```
